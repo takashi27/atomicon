@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "atomicon-20d6c": {
+      "hosting": {
+        "atomicon": [
+          "atomicon-20d6c"
+        ]
+      }
+    }
+  }
+}

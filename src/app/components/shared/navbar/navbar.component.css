@@ -1,0 +1,32 @@
+#votar {
+    display: none;
+}
+
+@media (min-width:768px) {
+    .dropdown .dropdown-menu .dropdown-item:active,
+    .dropdown .dropdown-menu .dropdown-item:hover {
+        color: black !important;
+    }
+    .navbar {
+        font-size: 1.2rem;
+    }
+    .log {
+        margin-left: 0.3rem;
+    }
+    .lig {
+        margin-top: 0.5rem;
+        margin-right: 1rem;
+    }
+    .vot {
+        margin-left: 4rem;
+    }
+    .navbar-nav>li>.dropdown-menu {
+        background-color: #343A40;
+    }
+    .navbar-nav>li>.dropdown-menu a {
+        color: white;
+    }
+    #votar {
+        display: inline;
+    }
+}

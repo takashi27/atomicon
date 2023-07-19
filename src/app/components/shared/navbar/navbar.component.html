@@ -1,0 +1,172 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container wow animate__animated animate__fadeInDown" data-wow-delay="1.2s">
+        <div class="d-flex justify-content-between flex-fill">
+            <div class="p-1" id="votar">
+                <img data-toggle="modal" (click)="ejemplo()" data-target="#exampleModal" class="vot" src="../../../../assets/nuevo/heather/Mesa de trabajo 12-8.png" style="cursor: pointer;" alt="">
+            </div>
+            <div class="p-1"><img class="vot w-100" src="../../../../assets/nuevo/heather/Mesa de trabajo 3-8.png" alt=""></div>
+            <div class="p-1 d-flex">
+                <div class="dropleft">
+                    <a href="#" role="button" (click)="menu()" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <img class="lig w-100" src="../../../../assets/nuevo/heather/Mesa de trabajo 8-8.png" alt="">
+                    </a>
+
+                    <div class="dropdown-menu bg-dark" aria-labelledby="dropdownMenuLink">
+                        <a class="dropdown-item text-white" data-toggle="modal" (click)="ejemplo()" data-target="#exampleModal">Votar</a>
+                        <a class="dropdown-item text-white" (click)="scroll()">Esto es AtomicON</a>
+                        <a class="dropdown-item text-white" (click)="scrollInv()">Invitados</a>
+                        <a *ngIf="conectado" class="dropdown-item text-white" (click)="logOut()">Cerrar Sesion</a>
+                    </div>
+                </div>
+                <div class="p2" id="votar">
+                    <a href="https://www.facebook.com/atomicon.show"> <img class="log" src="../../../../assets/nuevo/heather/Mesa de trabajo 4-8.png" alt=""></a>
+                    <a href="https://www.instagram.com/atomicon.show/"> <img class="log" src="../../../../assets/nuevo/heather/Mesa de trabajo 5-8.png" alt=""></a>
+                    <a href="https://twitter.com/Atomicon_col"> <img class="log" src="../../../../assets/nuevo/heather/Mesa de trabajo 6-8.png" alt=""></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-dark">
+                <h5 class="modal-title text-white" id="exampleModalLabel">{{auth.nombreUsuario}} Puedes votar en las categorias:</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-body text-center" style="background-color: black;">
+                <div *ngIf="conectado" class="votar">
+                    <div class="goty animate__animated animate__fadeIn" *ngIf="!auth.globalUser.goty && mGoty">
+                        <h3 class="text-center text-white">Juego del Año</h3>
+                        <br>
+                        <div class="row row-cols-1 row-cols-md-3 justify-content-center">
+                            <div class="col mb-3" *ngFor="let item of goty.goty;let indexOfelement = index;">
+                                <div class="card">
+                                    <img [src]="item.imagen" class="card-img-top" height="150px" alt="...">
+                                    <div class="card-body bg-dark">
+                                        <h6 class="card-title text-white">{{item.titulo}}</h6>
+                                        <button (click)="votarGoty(item.id)" class="btn btn-primary btn-block">Votar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="artevisual animate__animated animate__fadeIn" *ngIf="!auth.globalUser.movil && mMovil">
+                        <h3 class="text-center text-white">Juego Movil del Año</h3>
+                        <br>
+                        <div class="row row-cols-1 row-cols-md-3 justify-content-center">
+                            <div class="col mb-3" *ngFor="let item of goty.movil;let indexOfelement = index;">
+                                <div class="card">
+                                    <img [src]="item.imagen" class="card-img-top" height="150px" alt="...">
+                                    <div class="card-body bg-dark">
+                                        <h6 class="card-title text-white">{{item.titulo}}</h6>
+                                        <button (click)="votarMovil(item.id)" class="btn btn-primary btn-block">Votar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bandasonora animate__animated animate__fadeIn" *ngIf="!auth.globalUser.esport && mEsport">
+                        <h3 class="text-center text-white">Esport del Año</h3>
+                        <br>
+                        <div class="row row-cols-1 row-cols-md-3 justify-content-center">
+                            <div class="col mb-3" *ngFor="let item of goty.esport;let indexOfelement = index;">
+                                <div class="card">
+                                    <img [src]="item.imagen" class="card-img-top" height="150px" alt="...">
+                                    <div class="card-body bg-dark">
+                                        <h6 class="card-title text-white">{{item.titulo}}</h6>
+                                        <button (click)="votarEsport(item.id)" class="btn btn-primary btn-block">Votar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="multijugador animate__animated animate__fadeIn" *ngIf="!auth.globalUser.arteVisual && mArte">
+                        <h3 class="text-center text-white">Mejor Arte Visual del Año</h3>
+                        <br>
+                        <div class="row row-cols-1 row-cols-md-3 justify-content-center">
+                            <div class="col mb-3" *ngFor="let item of goty.arteVisual;let indexOfelement = index;">
+                                <div class="card">
+                                    <img [src]="item.imagen" class="card-img-top" height="150px" alt="...">
+                                    <div class="card-body bg-dark">
+                                        <h6 class="card-title text-white">{{item.titulo}}</h6>
+                                        <button (click)="votarArte(item.id)" class="btn btn-primary btn-block">Votar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="juegomovil animate__animated animate__fadeIn" *ngIf="!auth.globalUser.bandaSonora && mBanda">
+                        <h3 class="text-center text-white">Mejor Banda Sonora del Año</h3>
+                        <br>
+                        <div class="row row-cols-1 row-cols-md-3 justify-content-center">
+                            <div class="col mb-3" *ngFor="let item of goty.bandaSonora;let indexOfelement = index;">
+                                <div class="card">
+                                    <img [src]="item.imagen" class="card-img-top" height="150px" alt="...">
+                                    <div class="card-body bg-dark">
+                                        <h6 class="card-title text-white">{{item.titulo}}</h6>
+                                        <button (click)="votarBanda(item.id)" class="btn btn-primary btn-block">Votar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="juegoCurso animate__animated animate__fadeIn" *ngIf="!auth.globalUser.multijugador && mMulti">
+                        <h3 class="text-center text-white">Mejor Multijuador del Año</h3>
+                        <br>
+                        <div class="row row-cols-1 row-cols-md-3 justify-content-center">
+                            <div class="col mb-3" *ngFor="let item of goty.multijugador;let indexOfelement = index;">
+                                <div class="card">
+                                    <img [src]="item.imagen" class="card-img-top" height="150px" alt="...">
+                                    <div class="card-body bg-dark">
+                                        <h6 class="card-title text-white">{{item.titulo}}</h6>
+                                        <button (click)="votarMulti(item.id)" class="btn btn-primary btn-block">Votar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="esport animate__animated animate__fadeIn" *ngIf="!auth.globalUser.curso && mCurso">
+                        <h3 class="text-center text-white"> Mejor Juego En Curso del Año</h3>
+                        <br>
+                        <div class="row row-cols-1 row-cols-md-3 justify-content-center">
+                            <div class="col mb-3" *ngFor="let item of goty.curso;let indexOfelement = index;">
+                                <div class="card">
+                                    <img [src]="item.imagen" class="card-img-top" height="150px" alt="...">
+                                    <div class="card-body bg-dark">
+                                        <h6 class="card-title text-white">{{item.titulo}}</h6>
+                                        <button (click)="votarCurso(item.id)" class="btn btn-primary btn-block">Votar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="finalizado">
+                        <br><br>
+                        <h1 class="text-white animate__animated animate__zoomIn">Gracias {{auth.nombreUsuario}} Por Participar</h1>
+                        <br>
+                        <img [src]="auth.fotoUsuario" alt="" class="w-25 rounded rounded-circle">
+                        <br><br>
+                        <button class="btn btn-primary" (click)="logOut()">Cerrar Sesión</button>
+
+                    </div>
+                </div>
+                <div *ngIf="!conectado" class="iniciarSesion">
+                    <h1 class="text-center text-white">Inicia Sesión Para Votar</h1>
+                    <br>
+                    <div class="row justify-content-center">
+                        <button (click)="loginFacebook()" style="margin-right: .5rem;" class="btn btn-primary">Facebook</button>
+                        <button (click)="loginTwitter()" style="margin-right: .5rem;" class="btn btn-info">Twitter</button>
+                        <button (click)="loginGoogle()" class="btn btn-danger">Google</button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer bg-dark">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Cerrar</button>
+            </div>
+
+        </div>
+    </div>
+</div>
